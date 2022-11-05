@@ -5,7 +5,7 @@ Architecture design for virtual avatar distributive streaming service
 
 Utilizes webRTC to let clients stream to each other using peer-to-peer. The matching fleet helps to establish handshake between browser.
 
-![v2-diagram](./architecture-diagram-v3.png)
+![v3-diagram](./architecture-diagram-v3.png)
 
 # V2
 
