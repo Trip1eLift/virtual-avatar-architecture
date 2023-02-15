@@ -1,26 +1,28 @@
 # virtual-avatar-architecture
 Architecture design for virtual avatar distributive streaming service
 
-# V3
+# V3.1
 
-Utilizes webRTC to let clients stream to each other using peer-to-peer. The matching fleet helps to establish handshake between browser.
+Same as V3 but with some implementation fixes. It utilizes WebRTC to let clients stream to each other from peer-to-peer protocol. The matching fleet helps to establish handshake between peer browsers.
 
-![v3-diagram](./architecture-diagram-v3.png)
+![v3.1-diagram](./architecture-diagram-v3.1.png)
 
 # V2
 
-The idea of V2 is to have another layer of websocket streaming. If 2 clients connect to the same instance, it's very simple. But if 2 clients connect to different instances initially, I will let the 2 instances stream to each other. By doing so, the complexity of the design is greatly reduced because I no longer have to customize a load balancer. I can also let NLB takes over the encryption (`wss protocol`).
+The idea of V2 is to have another layer of websocket streaming. If 2 clients connect to the same instance, it's very simple. But if 2 clients connect to different instances initially, it will let the 2 instances proxy to each other. By doing so, the complexity of the design is greatly reduced because I no longer have to customize a load balancer.
 
 ![v2-diagram](./architecture-diagram-v2.png)
 
 # V1
 
-I customize a load balancer using lambda to allow clients of the same `room_id` connect to one instance.
+A customized a load balancer using lambda to allow clients of the same `room_id` connect to one particular instance.
 
 ![v1-diagram](./architecture-diagram-v1.png)
 
 ## WS encrpytion
-Note: WS encryption will be implemented later. A client will generatean asymetric key pair and send the c_public key to server. The server will also generate an asymetric key pair and send the s_public key to all clients.
+Note: WSS is taken over by ALB with cert manager in `V3.1`.
+
+WS encryption will be implemented later. A client will generatean asymetric key pair and send the c_public key to server. The server will also generate an asymetric key pair and send the s_public key to all clients.
 
 Flow:
 1. client_1 data
